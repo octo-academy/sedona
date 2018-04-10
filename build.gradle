@@ -25,5 +25,6 @@ repositories {
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile 'org.springframework.boot:spring-boot-starter-web'
+    compile "com.fasterxml.jackson.module:jackson-module-kotlin:$jackson_kotlin_version"
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
