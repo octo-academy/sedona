@@ -17,4 +17,28 @@ you want the application to listen:
 docker run -d -p 80:8080 sedona-server
 ```
 
+## Technologies
+[![Kotlin][kotlin_logo]][kotlin_link]
+
+[![Spring Boot][springboot_logo]][springboot_link]
+
+[![REST API][restapi_logo]][restapi_link]
+
+[![Gradle][gradle_logo]][gradle_link]
+
+[![Docker][docker_logo]][docker_link]
+
+[kotlin_link]: https://kotlinlang.org/
+[kotlin_logo]: kotlin-logo.png
+
+[springboot_link]: https://projects.spring.io/spring-boot/
+[springboot_logo]: springboot-logo.png
+
+[restapi_link]: https://restfulapi.net/
+[restapi_logo]: rest-api-logo.png
+
+[gradle_link]: https://gradle.org/
+[gradle_logo]: gradle-logo.png
+
 [docker_link]: https://www.docker.com/
+[docker_logo]: docker-logo.png
