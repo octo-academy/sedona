@@ -29,16 +29,16 @@ docker run -d -p 80:8080 sedona-server
 [![Docker][docker_logo]][docker_link]
 
 [kotlin_link]: https://kotlinlang.org/
-[kotlin_logo]: kotlin-logo.png
+[kotlin_logo]: readme/kotlin-logo.png
 
 [springboot_link]: https://projects.spring.io/spring-boot/
-[springboot_logo]: springboot-logo.png
+[springboot_logo]: readme/springboot-logo.png
 
 [restapi_link]: https://restfulapi.net/
-[restapi_logo]: rest-api-logo.png
+[restapi_logo]: readme/rest-api-logo.png
 
 [gradle_link]: https://gradle.org/
-[gradle_logo]: gradle-logo.png
+[gradle_logo]: readme/gradle-logo.png
 
 [docker_link]: https://www.docker.com/
-[docker_logo]: docker-logo.png
+[docker_logo]: readme/docker-logo.png
