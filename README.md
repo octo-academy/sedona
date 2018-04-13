@@ -3,7 +3,7 @@ Sedona backend is REST API project for one of the HTML Academy projects of the s
 
 ## Run application
 Make sure you have [docker][docker_link] installed and follow the steps.
-Compile and build and application:
+Compile and build an application:
 ```bash
 ./gradlew clean build
 ```
