@@ -8,7 +8,7 @@ enum class Type {
     HOTEL, MOTEL, APARTMENTS
 }
 
-data class Accommodation(
+data class Lodging(
         val name: String,
         val type: Type,
         val price: Int,
