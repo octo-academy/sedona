@@ -28,3 +28,8 @@ dependencies {
     compile "com.fasterxml.jackson.module:jackson-module-kotlin:$jackson_kotlin_version"
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
+
+task wrapper(type: Wrapper) {
+    description = 'Generates gradlew[.bat] scripts'
+    gradleVersion = '4.7'
+}
