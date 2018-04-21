@@ -22,12 +22,17 @@ jar {
 
 repositories {
     jcenter()
+    maven {
+        url "https://dl.bintray.com/kotlin/exposed"
+    }
 }
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compile "org.jetbrains.exposed:exposed:$exposed_version"
     compile 'org.springframework.boot:spring-boot-starter-web'
     compile "com.fasterxml.jackson.module:jackson-module-kotlin:$jackson_kotlin_version"
+    compile "org.postgresql:postgresql:$postgresql_version"
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 
