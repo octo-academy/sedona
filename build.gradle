@@ -20,6 +20,10 @@ jar {
     version = '0.1.0'
 }
 
+springBoot {
+    mainClass = "com.github.octoacademy.sedona.ApplicationKt"
+}
+
 repositories {
     jcenter()
     maven {
