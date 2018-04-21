@@ -2,19 +2,20 @@
 Sedona backend is REST API project for one of the HTML Academy projects of the same name.
 
 ## Run application
-Make sure you have [docker][docker_link] installed and follow the steps.
-Compile and build an application:
+Make sure you have [docker][docker_link] installed and required environment variables set:
+
+* `POSTGRES_USER`
+* `POSTGRES_PASSWORD`
+* `POSTGRES_DB`
+
+and then run the deployment script:
 ```bash
-./gradlew clean build
+./deploy
 ```
-Build an image:
+Deployment script also supports `--dev` flag that allows to populate required environment variables from
+`environment.properties` file in the root of the project:
 ```bash
-docker build -t sedona-server .
-```
-and then run container mapping exposed port of the container on the port of host machine
-you want the application to listen:
-```bash
-docker run -d -p 80:8080 sedona-server
+./deploy --dev
 ```
 
 ## Technologies
