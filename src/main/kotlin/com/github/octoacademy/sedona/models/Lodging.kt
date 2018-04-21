@@ -12,6 +12,6 @@ data class Lodging(
         val name: String,
         val type: Type,
         val price: Int,
-        val stars: StarRating,
+        val stars: Int,
         val rating: Double
 )
