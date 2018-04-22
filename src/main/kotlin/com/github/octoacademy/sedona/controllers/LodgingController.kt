@@ -2,7 +2,12 @@ package com.github.octoacademy.sedona.controllers
 
 import com.github.octoacademy.sedona.models.Lodging
 import com.github.octoacademy.sedona.services.LodgingService
+import io.vavr.control.Try
 import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
+import org.springframework.http.ResponseEntity.noContent
+import org.springframework.http.ResponseEntity.notFound
+import org.springframework.http.ResponseEntity.ok
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -18,30 +23,35 @@ import org.springframework.web.bind.annotation.RestController
 class LodgingController {
 
     @GetMapping
-    fun list() : List<Lodging> {
+    fun list(): List<Lodging> {
         return LodgingService.list()
     }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    fun create(@RequestBody lodging : Lodging) : Lodging {
+    fun create(@RequestBody lodging: Lodging): Lodging {
         return LodgingService.create(lodging)
     }
 
     @GetMapping("/{id}")
-    @Throws(RuntimeException::class)
-    fun read(@PathVariable id : Int) : Lodging? {
-        return LodgingService.read(id)
+    fun read(@PathVariable id: Int): ResponseEntity<Lodging> {
+        return Try.of { LodgingService.read(id) }
+                .filter { it != null }
+                .map { ok().body<Lodging>(it) }
+                .getOrElse { notFound().build<Lodging>() }
     }
 
     @PutMapping("/{id}")
-    fun update(@PathVariable id : Int, @RequestBody lodging: Lodging) : Lodging {
-        return LodgingService.update(id, lodging)
+    fun update(@PathVariable id: Int, @RequestBody lodging: Lodging): ResponseEntity<Lodging> {
+        return Try.of { LodgingService.update(id, lodging) }
+                .map { ok().body(it) }
+                .getOrElse { notFound().build() }
     }
 
-    @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
-    fun delete(@PathVariable id : Int) {
-        LodgingService.remove(id)
+    fun delete(@PathVariable id: Int): ResponseEntity<Nothing> {
+        return Try.of { LodgingService.remove(id) }
+                .map { noContent().build<Nothing>() }
+                .getOrElse { notFound().build<Nothing>() }
     }
 }
