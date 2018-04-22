@@ -24,6 +24,10 @@ springBoot {
     mainClass = "com.github.octoacademy.sedona.ApplicationKt"
 }
 
+compileKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+
 repositories {
     jcenter()
     maven {
