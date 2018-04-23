@@ -13,7 +13,7 @@ and then run the deployment script:
 ./deploy
 ```
 Deployment script also supports `--dev` flag that allows to populate required environment variables from
-`environment.properties` file in the root of the project:
+[`environment.properties`](environment.properties) file in the root of the project:
 ```bash
 ./deploy --dev
 ```
