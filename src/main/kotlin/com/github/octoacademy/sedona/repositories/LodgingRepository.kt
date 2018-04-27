@@ -12,7 +12,7 @@ import org.jetbrains.exposed.sql.update
 import org.springframework.stereotype.Repository
 
 @Repository
-object LodgingRepository {
+class LodgingRepository {
 
     fun list(): List<Lodging> =
             Lodgings.selectAll()

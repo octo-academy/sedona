@@ -6,15 +6,15 @@ import org.jetbrains.exposed.sql.transactions.transaction
 import org.springframework.stereotype.Service
 
 @Service
-object LodgingService {
+class LodgingService(val repository: LodgingRepository) {
 
-    fun list(): List<Lodging> = transaction { LodgingRepository.list() }
+    fun list(): List<Lodging> = transaction { repository.list() }
 
-    fun create(lodging: Lodging): Lodging = transaction { LodgingRepository.create(lodging) }
+    fun create(lodging: Lodging): Lodging = transaction { repository.create(lodging) }
 
-    fun read(id: Int): Lodging? = transaction { LodgingRepository.read(id) }
+    fun read(id: Int): Lodging? = transaction { repository.read(id) }
 
-    fun update(id: Int, lodging: Lodging): Lodging = transaction { LodgingRepository.update(id, lodging) }
+    fun update(id: Int, lodging: Lodging): Lodging = transaction { repository.update(id, lodging) }
 
-    fun remove(id: Int) = transaction { LodgingRepository.remove(id) }
+    fun remove(id: Int) = transaction { repository.remove(id) }
 }
