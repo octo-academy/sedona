@@ -28,6 +28,15 @@ compileKotlin {
     kotlinOptions.jvmTarget = "1.8"
 }
 
+test {
+    useJUnitPlatform {
+        includeEngines "spek"
+    }
+    reports {
+        html.enabled = true
+    }
+}
+
 repositories {
     jcenter()
     maven {
@@ -43,6 +52,10 @@ dependencies {
     compile "org.postgresql:postgresql:$postgresql_version"
     compile "io.vavr:vavr:$vavr_version"
     testCompile("org.springframework.boot:spring-boot-starter-test")
+    testCompile "org.amshove.kluent:kluent:$kluent_version"
+    testCompile "org.jetbrains.spek:spek-api:$spek_version"
+    testRuntime "org.junit.platform:junit-platform-engine:$junit_platform_version"
+    testRuntime "org.jetbrains.spek:spek-junit-platform-engine:$spek_version"
 }
 
 task wrapper(type: Wrapper) {
