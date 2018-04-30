@@ -54,6 +54,7 @@ dependencies {
     testCompile("org.springframework.boot:spring-boot-starter-test")
     testCompile "org.amshove.kluent:kluent:$kluent_version"
     testCompile "org.jetbrains.spek:spek-api:$spek_version"
+    testCompile "com.h2database:h2:$h2_version"
     testRuntime "org.junit.platform:junit-platform-engine:$junit_platform_version"
     testRuntime "org.jetbrains.spek:spek-junit-platform-engine:$spek_version"
 }
