@@ -10,7 +10,7 @@ class LodgingService(val repository: LodgingRepository) {
 
     fun list(): List<Lodging> = transaction { repository.list() }
 
-    fun create(lodging: Lodging): Lodging = transaction { repository.create(lodging) }
+    fun create(lodging: Lodging): Int = transaction { repository.create(lodging) }
 
     fun read(id: Int): Lodging? = transaction { repository.read(id) }
 

@@ -19,9 +19,9 @@ class LodgingRepository {
                     .orderBy(Lodgings.name)
                     .map { fromRow(it) }
 
-    fun create(lodging: Lodging): Lodging {
-        Lodgings.insert(toRow(lodging))
-        return lodging
+    fun create(lodging: Lodging): Int {
+        val id = Lodgings.insert(toRow(lodging)) get Lodgings.id
+        return id!!.value
     }
 
     fun read(id: Int): Lodging? =

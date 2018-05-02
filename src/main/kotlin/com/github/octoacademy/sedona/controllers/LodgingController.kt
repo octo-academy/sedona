@@ -4,6 +4,7 @@ import com.github.octoacademy.sedona.models.Lodging
 import io.vavr.control.Try
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.http.ResponseEntity.created
 import org.springframework.http.ResponseEntity.noContent
 import org.springframework.http.ResponseEntity.notFound
 import org.springframework.http.ResponseEntity.ok
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
 
 import com.github.octoacademy.sedona.services.LodgingService
+import java.net.URI
 
 @RestController
 @RequestMapping("/lodgings")
@@ -30,8 +32,9 @@ class LodgingController(val service: LodgingService) {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    fun create(@RequestBody lodging: Lodging): Lodging {
-        return service.create(lodging)
+    fun create(@RequestBody lodging: Lodging): ResponseEntity<Lodging> {
+        val id = service.create(lodging)
+        return created(URI.create("/lodgings/$id")).body(lodging)
     }
 
     @GetMapping("/{id}")
