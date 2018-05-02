@@ -34,8 +34,9 @@ class LodgingRepository {
         return lodging
     }
 
-    fun remove(id: Int) {
-        Lodgings.deleteWhere { Lodgings.id eq id }
+    fun remove(id: Int): Boolean {
+        val affected = Lodgings.deleteWhere { Lodgings.id eq id }
+        return affected > 0
     }
 
     private fun toRow(lodging: Lodging): Lodgings.(UpdateBuilder<*>) -> Unit = {
