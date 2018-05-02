@@ -32,6 +32,9 @@ test {
     useJUnitPlatform {
         includeEngines "spek"
     }
+    testLogging {
+        exceptionFormat "full"
+    }
     reports {
         html.enabled = true
     }
