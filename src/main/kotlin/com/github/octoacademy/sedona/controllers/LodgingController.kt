@@ -47,9 +47,8 @@ class LodgingController(val service: LodgingService) {
 
     @PutMapping("/{id}")
     fun update(@PathVariable id: Int, @RequestBody lodging: Lodging): ResponseEntity<Lodging> {
-        return Try.of { service.update(id, lodging) }
-                .map { ok().body(it) }
-                .getOrElse { notFound().build() }
+        val updated = service.update(id, lodging)
+        return if (updated) ok().body(lodging) else notFound().build()
     }
 
     @DeleteMapping("/{id}")

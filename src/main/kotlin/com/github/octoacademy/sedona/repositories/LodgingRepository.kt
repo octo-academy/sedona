@@ -29,9 +29,9 @@ class LodgingRepository {
                     .map { fromRow(it) }
                     .firstOrNull()
 
-    fun update(id: Int, lodging: Lodging): Lodging {
-        Lodgings.update({ Lodgings.id eq id }, body = toRow(lodging))
-        return lodging
+    fun update(id: Int, lodging: Lodging): Boolean {
+        val affected = Lodgings.update({ Lodgings.id eq id }, body = toRow(lodging))
+        return affected > 0
     }
 
     fun remove(id: Int): Boolean {

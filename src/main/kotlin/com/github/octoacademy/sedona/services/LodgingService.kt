@@ -14,7 +14,7 @@ class LodgingService(val repository: LodgingRepository) {
 
     fun read(id: Int): Lodging? = transaction { repository.read(id) }
 
-    fun update(id: Int, lodging: Lodging): Lodging = transaction { repository.update(id, lodging) }
+    fun update(id: Int, lodging: Lodging): Boolean = transaction { repository.update(id, lodging) }
 
     fun remove(id: Int) = transaction { repository.remove(id) }
 }

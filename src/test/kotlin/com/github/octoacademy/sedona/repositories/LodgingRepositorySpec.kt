@@ -62,19 +62,17 @@ class LodgingRepositorySpec : Spek({
         }
 
         on("updating lodging") {
-            it("should throw exception when lodging with given id doesn't exist") { transaction {
-                val attemptToUpdate = { lodgingRepository.update(1, hotelCalifornia) }
-                attemptToUpdate `should throw` SQLException::class
+            val id = transaction { lodgingRepository.create(hotelCalifornia) }
+
+            it("should return false when lodging with given id doesn't exist") { transaction {
+                lodgingRepository.update(42, hotelCalifornia) `should be` false
             } }
 
-            it("should return updated lodging when one with given id exists") { transaction {
-                val id = lodgingRepository.create(hotelCalifornia)
-                val updated = lodgingRepository.update(id, grandBudapest)
-                updated `should equal` grandBudapest
+            it("should return true when lodging with given id exists") { transaction {
+                lodgingRepository.update(id, grandBudapest) `should equal` true
             } }
 
             it("should replace existent lodging with new one when given id exists") { transaction {
-                val id = lodgingRepository.create(hotelCalifornia)
                 lodgingRepository.update(id, grandBudapest)
                 val allTheLodgings = lodgingRepository.list()
                 grandBudapest `should be in` allTheLodgings
