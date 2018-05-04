@@ -21,7 +21,7 @@ jar {
 }
 
 springBoot {
-    mainClass = "com.github.octoacademy.sedona.ApplicationKt"
+    mainClassName = "com.github.octoacademy.sedona.ApplicationKt"
 }
 
 compileKotlin {
@@ -50,7 +50,7 @@ repositories {
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation "org.jetbrains.exposed:exposed:$exposed_version"
-    implementation "org.springframework.boot:spring-boot-starter-web"
+    implementation "org.springframework.boot:spring-boot-starter-web:$spring_boot_version"
     implementation "com.fasterxml.jackson.module:jackson-module-kotlin:$jackson_kotlin_version"
     implementation "org.postgresql:postgresql:$postgresql_version"
     implementation "io.vavr:vavr:$vavr_version"
