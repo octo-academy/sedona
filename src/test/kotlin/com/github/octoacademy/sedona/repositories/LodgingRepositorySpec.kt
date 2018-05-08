@@ -3,12 +3,13 @@ package com.github.octoacademy.sedona.repositories
 import com.github.octoacademy.sedona.models.Lodging
 import com.github.octoacademy.sedona.models.Type
 import com.github.octoacademy.sedona.schemas.Lodgings
+import io.vavr.control.Try
 import org.amshove.kluent.`should be in`
+import org.amshove.kluent.`should be instance of`
 import org.amshove.kluent.`should be`
 import org.amshove.kluent.`should contain all`
 import org.amshove.kluent.`should equal`
 import org.amshove.kluent.`should not be in`
-import org.amshove.kluent.`should throw`
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.transactions.transaction
@@ -20,7 +21,6 @@ import org.jetbrains.spek.api.dsl.TestContainer
 import org.jetbrains.spek.api.dsl.given
 import org.jetbrains.spek.api.dsl.it as originalIt
 import org.jetbrains.spek.api.dsl.on as originalOn
-import java.sql.SQLException
 
 class LodgingRepositorySpec : Spek({
 
@@ -61,149 +61,150 @@ class LodgingRepositorySpec : Spek({
         }
 
         on("attempting to create invalid lodging") {
-            val attemptToCreate = { lodgingRepository.create(invalidLodging) }
+            val attemptToCreate = lodgingRepository.create(invalidLodging)
 
             it("should throw exception") {
-                attemptToCreate `should throw` SQLException::class
+                attemptToCreate `should be instance of` Try.Failure::class
             }
 
             it("should not appear in the lodgings list") {
-                invalidLodging `should not be in` lodgingRepository.list()
+                invalidLodging `should not be in` lodgingRepository.list().get()
             }
         }
 
         on("attempting to create lodging if one already exists") {
             lodgingRepository.create(hotelCalifornia)
-            val attemptToCreate = { lodgingRepository.create(hotelCalifornia) }
+            val attemptToCreate = lodgingRepository.create(hotelCalifornia)
 
             it("should throw exception") {
-                attemptToCreate `should throw` SQLException::class
+                attemptToCreate `should be instance of` Try.Failure::class
             }
 
             it("should not double lodgings") {
-                lodgingRepository.list() `should equal` listOf(hotelCalifornia)
+                lodgingRepository.list().get() `should equal` listOf(hotelCalifornia)
             }
         }
 
         on("creating new lodging") {
-            val id = lodgingRepository.create(hotelCalifornia)
+            val id = lodgingRepository.create(hotelCalifornia).get()
 
             it("should return id of created lodging") {
-                lodgingRepository.read(id) `should equal` hotelCalifornia
+                lodgingRepository.read(id).get() `should equal` hotelCalifornia
             }
 
             it("should appear in the lodgings list") {
-                hotelCalifornia `should be in` lodgingRepository.list()
+                hotelCalifornia `should be in` lodgingRepository.list().get()
             }
         }
 
         on("attempting to read lodging with id that doesn't exist") {
-            val hotelCaliforniaId = lodgingRepository.create(hotelCalifornia)
-            val grandBudapestId = lodgingRepository.create(grandBudapest)
+            val hotelCaliforniaId = lodgingRepository.create(hotelCalifornia).get()
+            val grandBudapestId = lodgingRepository.create(grandBudapest).get()
             val nonExistentId = hotelCaliforniaId + grandBudapestId
+            val attemptToRead = lodgingRepository.read(nonExistentId)
 
             it("should return null") {
-                lodgingRepository.read(nonExistentId) `should be` null
+                attemptToRead `should be instance of` Try.Failure::class
             }
         }
 
         on("reading lodging") {
-            val id = lodgingRepository.create(hotelCalifornia)
+            val id = lodgingRepository.create(hotelCalifornia).get()
 
             it("should return lodging") {
-                lodgingRepository.read(id) `should equal` hotelCalifornia
+                lodgingRepository.read(id).get() `should equal` hotelCalifornia
             }
         }
 
         on("attempting to update lodging with id that doesn't exist") {
-            val hotelCaliforniaId = lodgingRepository.create(hotelCalifornia)
-            val grandBudapestId = lodgingRepository.create(grandBudapest)
+            val hotelCaliforniaId = lodgingRepository.create(hotelCalifornia).get()
+            val grandBudapestId = lodgingRepository.create(grandBudapest).get()
             val nonExistentId = hotelCaliforniaId + grandBudapestId
-            val updated = lodgingRepository.update(nonExistentId, mariposaSaloon)
+            val attemptToUpdate = lodgingRepository.update(nonExistentId, mariposaSaloon)
 
             it("should return false") {
-                updated `should be` false
+                attemptToUpdate `should be instance of` Try.Failure::class
             }
 
             it("should not affect existing lodgings") {
-                lodgingRepository.list() `should contain all` listOf(hotelCalifornia, grandBudapest)
+                lodgingRepository.list().get() `should contain all` listOf(hotelCalifornia, grandBudapest)
             }
 
             it("should not appear in the lodging list") {
-                mariposaSaloon `should not be in` lodgingRepository.list()
+                mariposaSaloon `should not be in` lodgingRepository.list().get()
             }
         }
 
         on("attempting to update lodging with invalid one") {
-            val hotelCaliforniaId = lodgingRepository.create(hotelCalifornia)
+            val hotelCaliforniaId = lodgingRepository.create(hotelCalifornia).get()
             lodgingRepository.create(grandBudapest)
             lodgingRepository.create(mariposaSaloon)
-            val attemptToUpdate = { lodgingRepository.update(hotelCaliforniaId, invalidLodging) }
+            val attemptToUpdate = lodgingRepository.update(hotelCaliforniaId, invalidLodging)
 
             it("should throw exception") {
-                attemptToUpdate `should throw` SQLException::class
+                attemptToUpdate `should be instance of` Try.Failure::class
             }
 
             it("should not affect existing lodgings") {
-                lodgingRepository.list() `should contain all` listOf(hotelCalifornia, grandBudapest, mariposaSaloon)
+                lodgingRepository.list().get() `should contain all` listOf(hotelCalifornia, grandBudapest, mariposaSaloon)
             }
 
             it("should not appear in the lodging list") {
-                invalidLodging `should not be in` lodgingRepository.list()
+                invalidLodging `should not be in` lodgingRepository.list().get()
             }
         }
 
         on("updating lodging") {
-            val id = lodgingRepository.create(hotelCalifornia)
-            val updated = lodgingRepository.update(id, grandBudapest)
+            val id = lodgingRepository.create(hotelCalifornia).get()
+            val updated = lodgingRepository.update(id, grandBudapest).get()
 
             it("should return true") {
-                updated `should be` true
+                updated `should be` grandBudapest
             }
 
             it("should provide new lodging on reading") {
-                lodgingRepository.read(id) `should equal` grandBudapest
+                lodgingRepository.read(id).get() `should equal` grandBudapest
             }
         }
 
         on("attempting to remove lodging with id that doesn't exist") {
-            val hotelCaliforniaId = lodgingRepository.create(hotelCalifornia)
-            val grandBudapestId = lodgingRepository.create(grandBudapest)
-            val mariposaSaloonId = lodgingRepository.create(mariposaSaloon)
+            val hotelCaliforniaId = lodgingRepository.create(hotelCalifornia).get()
+            val grandBudapestId = lodgingRepository.create(grandBudapest).get()
+            val mariposaSaloonId = lodgingRepository.create(mariposaSaloon).get()
             val nonExistentId = hotelCaliforniaId + grandBudapestId + mariposaSaloonId
-            val removed = lodgingRepository.remove(nonExistentId)
+            val attemptToRemove = lodgingRepository.remove(nonExistentId)
 
             it("should return false") {
-                removed `should be` false
+                attemptToRemove `should be instance of` Try.Failure::class
             }
 
             it("should not affect existing lodgings") {
-                lodgingRepository.list() `should contain all` listOf(hotelCalifornia, grandBudapest, mariposaSaloon)
+                lodgingRepository.list().get() `should contain all` listOf(hotelCalifornia, grandBudapest, mariposaSaloon)
             }
         }
 
         on("removing lodging") {
-            val id = lodgingRepository.create(hotelCalifornia)
+            val id = lodgingRepository.create(hotelCalifornia).get()
             lodgingRepository.create(grandBudapest)
             lodgingRepository.create(mariposaSaloon)
-            val removed = lodgingRepository.remove(id)
+            val attemptToRemove = lodgingRepository.remove(id)
 
             it("should return true") {
-                removed `should be` true
+                attemptToRemove `should be instance of` Try.Success::class
             }
 
             it("should remove lodging under given id") {
-                hotelCalifornia `should not be in` lodgingRepository.list()
+                hotelCalifornia `should not be in` lodgingRepository.list().get()
             }
 
             it("should not affect other lodgings") {
-                lodgingRepository.list() `should contain all` listOf(grandBudapest, mariposaSaloon)
+                lodgingRepository.list().get() `should contain all` listOf(grandBudapest, mariposaSaloon)
             }
         }
 
         on("listing all lodgings when there are no lodgings yet") {
             it("should return an empty list") {
-                lodgingRepository.list() `should equal` emptyList()
+                lodgingRepository.list().get() `should equal` emptyList()
             }
         }
 
@@ -213,7 +214,7 @@ class LodgingRepositorySpec : Spek({
             lodgingRepository.create(mariposaSaloon)
 
             it("should return list of all the lodgings") {
-                lodgingRepository.list() `should contain all` listOf(hotelCalifornia, grandBudapest, mariposaSaloon)
+                lodgingRepository.list().get() `should contain all` listOf(hotelCalifornia, grandBudapest, mariposaSaloon)
             }
         }
     }

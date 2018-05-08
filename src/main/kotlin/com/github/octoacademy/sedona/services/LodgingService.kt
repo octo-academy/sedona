@@ -8,13 +8,13 @@ import org.springframework.stereotype.Service
 @Service
 class LodgingService(val repository: LodgingRepository) {
 
-    fun list(): List<Lodging> = transaction { repository.list() }
+    fun list(): List<Lodging> = transaction { repository.list().get() }
 
-    fun create(lodging: Lodging): Int = transaction { repository.create(lodging) }
+    fun create(lodging: Lodging): Int = transaction { repository.create(lodging).get() }
 
-    fun read(id: Int): Lodging? = transaction { repository.read(id) }
+    fun read(id: Int): Lodging? = transaction { repository.read(id).get() }
 
-    fun update(id: Int, lodging: Lodging): Boolean = transaction { repository.update(id, lodging) }
+    fun update(id: Int, lodging: Lodging): Lodging = transaction { repository.update(id, lodging).get() }
 
-    fun remove(id: Int) = transaction { repository.remove(id) }
+    fun remove(id: Int): Lodging = transaction { repository.remove(id).get() }
 }
