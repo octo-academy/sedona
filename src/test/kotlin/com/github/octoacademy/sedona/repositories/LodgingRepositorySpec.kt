@@ -63,11 +63,11 @@ class LodgingRepositorySpec : Spek({
         on("attempting to create invalid lodging") {
             val attemptToCreate = lodgingRepository.create(invalidLodging)
 
-            it("should throw exception") {
+            it("should be a failure") {
                 attemptToCreate `should be instance of` Try.Failure::class
             }
 
-            it("should not appear in the lodgings list") {
+            it("should not add invalid lodging in the lodgings list") {
                 invalidLodging `should not be in` lodgingRepository.list().get()
             }
         }
@@ -76,7 +76,7 @@ class LodgingRepositorySpec : Spek({
             lodgingRepository.create(hotelCalifornia)
             val attemptToCreate = lodgingRepository.create(hotelCalifornia)
 
-            it("should throw exception") {
+            it("should be a failure") {
                 attemptToCreate `should be instance of` Try.Failure::class
             }
 
@@ -86,9 +86,14 @@ class LodgingRepositorySpec : Spek({
         }
 
         on("creating new lodging") {
-            val id = lodgingRepository.create(hotelCalifornia).get()
+            val attemptToCreate = lodgingRepository.create(hotelCalifornia)
+
+            it("should be a success") {
+                attemptToCreate `should be instance of` Try.Success::class
+            }
 
             it("should return id of created lodging") {
+                val id = attemptToCreate.get()
                 lodgingRepository.read(id).get() `should equal` hotelCalifornia
             }
 
@@ -103,15 +108,20 @@ class LodgingRepositorySpec : Spek({
             val nonExistentId = hotelCaliforniaId + grandBudapestId
             val attemptToRead = lodgingRepository.read(nonExistentId)
 
-            it("should return null") {
+            it("should be a failure") {
                 attemptToRead `should be instance of` Try.Failure::class
             }
         }
 
         on("reading lodging") {
-            val id = lodgingRepository.create(hotelCalifornia).get()
+            val attemptToRead = lodgingRepository.create(hotelCalifornia)
+
+            it("should be a success") {
+                attemptToRead `should be instance of` Try.Success::class
+            }
 
             it("should return lodging") {
+                val id = attemptToRead.get()
                 lodgingRepository.read(id).get() `should equal` hotelCalifornia
             }
         }
@@ -122,7 +132,7 @@ class LodgingRepositorySpec : Spek({
             val nonExistentId = hotelCaliforniaId + grandBudapestId
             val attemptToUpdate = lodgingRepository.update(nonExistentId, mariposaSaloon)
 
-            it("should return false") {
+            it("should be a failure") {
                 attemptToUpdate `should be instance of` Try.Failure::class
             }
 
@@ -141,7 +151,7 @@ class LodgingRepositorySpec : Spek({
             lodgingRepository.create(mariposaSaloon)
             val attemptToUpdate = lodgingRepository.update(hotelCaliforniaId, invalidLodging)
 
-            it("should throw exception") {
+            it("should be a failure") {
                 attemptToUpdate `should be instance of` Try.Failure::class
             }
 
@@ -156,10 +166,15 @@ class LodgingRepositorySpec : Spek({
 
         on("updating lodging") {
             val id = lodgingRepository.create(hotelCalifornia).get()
-            val updated = lodgingRepository.update(id, grandBudapest).get()
+            val attemptToUpdate = lodgingRepository.update(id, grandBudapest)
 
-            it("should return true") {
-                updated `should be` grandBudapest
+            it("should be a success") {
+                attemptToUpdate `should be instance of` Try.Success::class
+            }
+
+            it("should return up") {
+                val updated = attemptToUpdate.get()
+                updated `should equal` grandBudapest
             }
 
             it("should provide new lodging on reading") {
@@ -174,7 +189,7 @@ class LodgingRepositorySpec : Spek({
             val nonExistentId = hotelCaliforniaId + grandBudapestId + mariposaSaloonId
             val attemptToRemove = lodgingRepository.remove(nonExistentId)
 
-            it("should return false") {
+            it("should be a failure") {
                 attemptToRemove `should be instance of` Try.Failure::class
             }
 
@@ -189,7 +204,7 @@ class LodgingRepositorySpec : Spek({
             lodgingRepository.create(mariposaSaloon)
             val attemptToRemove = lodgingRepository.remove(id)
 
-            it("should return true") {
+            it("should be a success") {
                 attemptToRemove `should be instance of` Try.Success::class
             }
 
@@ -203,8 +218,15 @@ class LodgingRepositorySpec : Spek({
         }
 
         on("listing all lodgings when there are no lodgings yet") {
+            val attemptToList = lodgingRepository.list()
+
+            it("should be a success") {
+                attemptToList `should be instance of` Try.Success::class
+            }
+
             it("should return an empty list") {
-                lodgingRepository.list().get() `should equal` emptyList()
+                val lodgings = attemptToList.get()
+                lodgings `should equal` emptyList()
             }
         }
 
@@ -212,9 +234,15 @@ class LodgingRepositorySpec : Spek({
             lodgingRepository.create(hotelCalifornia)
             lodgingRepository.create(grandBudapest)
             lodgingRepository.create(mariposaSaloon)
+            val attemptToList = lodgingRepository.list()
+
+            it("should be a success") {
+                attemptToList `should be instance of` Try.Success::class
+            }
 
             it("should return list of all the lodgings") {
-                lodgingRepository.list().get() `should contain all` listOf(hotelCalifornia, grandBudapest, mariposaSaloon)
+                val lodgings = attemptToList.get()
+                lodgings `should contain all` listOf(hotelCalifornia, grandBudapest, mariposaSaloon)
             }
         }
     }
