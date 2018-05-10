@@ -6,7 +6,6 @@ import com.github.octoacademy.sedona.schemas.Lodgings
 import io.vavr.control.Try
 import org.amshove.kluent.`should be in`
 import org.amshove.kluent.`should be instance of`
-import org.amshove.kluent.`should be`
 import org.amshove.kluent.`should contain all`
 import org.amshove.kluent.`should equal`
 import org.amshove.kluent.`should not be in`
