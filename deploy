@@ -8,9 +8,12 @@ then
     export POSTGRES_DB POSTGRES_USER POSTGRES_PASSWORD
 else
     # Check if required parameters exists
-    export POSTGRES_DB="${POSTGRES_DB:?Postgess database must be set and not be empty}"
-    export POSTGRES_USER="${POSTGRES_USER:?Postgess user name must be set and not be empty}"
-    export POSTGRES_PASSWORD="${POSTGRES_PASSWORD:?Postgess user password must be set and not be empty}"
+    error=$(tput setaf 1)
+    normal=$(tput sgr0)
+    message="${error}Must be set and not be empty.${normal}"
+    export POSTGRES_DB="${POSTGRES_DB:?${message}}"
+    export POSTGRES_USER="${POSTGRES_USER:?${message}}"
+    export POSTGRES_PASSWORD="${POSTGRES_PASSWORD:?${message}}"
 fi
 
 # Build the application
