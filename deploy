@@ -11,9 +11,9 @@ else
     error=$(tput setaf 1)
     normal=$(tput sgr0)
     message="${error}Must be set and not be empty.${normal}"
-    export POSTGRES_DB="${POSTGRES_DB:?${message}}"
-    export POSTGRES_USER="${POSTGRES_USER:?${message}}"
-    export POSTGRES_PASSWORD="${POSTGRES_PASSWORD:?${message}}"
+    export POSTGRES_DB=${POSTGRES_DB:?${message}}
+    export POSTGRES_USER=${POSTGRES_USER:?${message}}
+    export POSTGRES_PASSWORD=${POSTGRES_PASSWORD:?${message}}
 fi
 
 # Build the application
