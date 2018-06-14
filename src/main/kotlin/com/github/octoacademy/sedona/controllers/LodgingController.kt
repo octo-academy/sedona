@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
 
 import com.github.octoacademy.sedona.services.LodgingService
+import org.springframework.http.ResponseEntity.unprocessableEntity
 import java.net.URI
 
 @RestController
@@ -26,33 +27,37 @@ import java.net.URI
 class LodgingController(val service: LodgingService) {
 
     @GetMapping
-    fun list(): List<Lodging> {
+    fun list(): ResponseEntity<List<Lodging>> {
         return service.list()
+                .map { ok().body(it) }
+                .getOrElse { notFound().build() }
     }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     fun create(@RequestBody lodging: Lodging): ResponseEntity<Lodging> {
-        val id = service.create(lodging)
-        return created(URI.create("/lodgings/$id")).body(lodging)
+        return service.create(lodging)
+                .map { id -> created(URI.create("/lodgings/$id")).body(lodging) }
+                .getOrElse { unprocessableEntity().body(lodging) }
     }
 
     @GetMapping("/{id}")
     fun read(@PathVariable id: Int): ResponseEntity<Lodging> {
-        return Try.of { service.read(id) }
-                .filter { it != null }
-                .map { ok().body<Lodging>(it) }
-                .getOrElse { notFound().build<Lodging>() }
+        return service.read(id)
+                .map { ok().body(it) }
+                .getOrElse { notFound().build() }
     }
 
     @PutMapping("/{id}")
     fun update(@PathVariable id: Int, @RequestBody lodging: Lodging): ResponseEntity<Lodging> {
-        return ok().body(service.update(id, lodging))
+        return service.update(id, lodging)
+                .map { ok().body(it) }
+                .getOrElse { notFound().build() }
     }
 
     @DeleteMapping("/{id}")
     fun delete(@PathVariable id: Int): ResponseEntity<Nothing> {
-        return Try.of { service.remove(id) }
+        return service.remove(id)
                 .map { noContent().build<Nothing>() }
                 .getOrElse { notFound().build<Nothing>() }
     }
