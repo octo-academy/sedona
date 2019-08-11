@@ -1,0 +1,19 @@
+html, body {
+    position: relative;
+    font-family: 'PT Sans', sans-serif;
+    min-width: 768px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0;
+    height: 100%;
+    color: #000;
+    font-size: 14px;
+    line-height: 21px;
+    text-transform: uppercase;
+    background-color: #FFF;
+    box-shadow: 0 0 15px 0 rgba(0,0,0,0.2);
+}
+
+a {
+    text-decoration: none;
+}

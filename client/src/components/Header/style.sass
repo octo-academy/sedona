@@ -1,0 +1,53 @@
+$primary-color: black
+$secondary-color: #B2B2B2
+$accent-color: #669EC0
+
+.menu
+    .menu__items
+        display: flex
+        flex-flow: row wrap
+        justify-content: flex-start
+        width: 100%
+        margin: 0
+        padding: 15px 0
+        list-style: none
+
+    .menu__item
+        flex: 0 0 20%
+        font-size: 14px
+        font-weight: 700
+        line-height: 25px
+
+        text-transform: uppercase
+
+        &:nth-child(4n + 1),
+        &:nth-child(4n + 2)
+            text-align: left
+
+        &:nth-child(4n + 3),
+        &:nth-child(4n + 4)
+            text-align: right
+
+        &:nth-child(4n + 1)
+            margin-left: 6%
+
+        &:nth-child(4n + 2)
+            margin-right: 8%
+
+        &:nth-child(4n)
+            margin-right: 6%
+
+    .menu__link
+        text-decoration: none
+        color: $primary-color
+        transition: color 100ms linear
+
+    .menu__link:hover
+        color: $accent-color
+
+    .menu__link:active
+        color: $secondary-color
+
+    .menu__link:not([href]),
+    .menu__link:not([href]):hover
+        color: $secondary-color

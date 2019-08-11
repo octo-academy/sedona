@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg">
+    <symbol id="house" viewBox="0 0 100 100">
+        <path d="M 70 25
+                 v -20 h 15 v 90 h 10 h -90 h 10 v -55 l -10 10 l 45 -45 l 45 45
+                 m -55 -10
+                 a 10 10 0 1 0 20 0
+                 a 10 10 0 1 0 -20 0
+                 m 0 20 h 20 v 25 h -20 v -25 z
+                 m -17 -5 h 3 v 5 h -3 v -5 z
+                 m 0 10 h 3 v 5 h -3 v -5 z
+                 m 5 0 h 3 v 5 h -3 v -5 z
+                 m 0 -10 h 3 v 5 h -3 v -5 z
+                 m 40 0 h 3 v 5 h -3 v -5 z
+                 m 0 10 h 3 v 5 h -3 v -5 z
+                 m 5 0 h 3 v 5 h -3 v -5 z
+                 m 0 -10 h 3 v 5 h -3 v -5 z"
+              fill-rule="evenodd"/>
+    </symbol>
+
+    <symbol id="burger" viewBox="0 0 100 100">
+        <path d="M 90 45
+                 c 0 -50 -80 -50 -80 0 h 80 z
+                 m -41.5 -25 h 3 v 5 h -3 v -5 z
+                 m -10 -5 h 3 v 5 h -3 v -5 z
+                 m 20 0 h 3 v 5 h -3 v -5 z
+                 m -53.5 35 l 7.5 7.5 l 7.5 -7.5 l 7.5 7.5 l 7.5 -7.5 l 7.5 7.5 l 7.5 -7.5 l 7.5 7.5 l 7.5 -7.5 l 7.5 7.5 l 7.5 -7.5 l 7.5 7.5 l 7.5 -7.5 v 3 l -7.5 7.5 l -7.5 -7.5 l -7.5 7.5 l -7.5 -7.5 l -7.5 7.5 l -7.5 -7.5 l -7.5 7.5 l -7.5 -7.5 l -7.5 7.5 l -7.5 -7.5 l -7.5 7.5 l -7.5 -7.5 v -3 z
+                 m 5 15 h 80 a 5 5 0 0 1 5 5 v 5 a 5 5 0 0 1 -5 5 h -80 a 5 5 0 0 1 -5 -5 v -5 a 5 5 0 0 1 5 -5
+                 m 0 15 v 5 a 15 15 0 0 0 15 10 h 50 a 15 15 0 0 0 15 -10 v -5"/>
+    </symbol>
+
+    <symbol id="surprice" viewBox="0 0 100 100">
+        <path d="M 42.5 50 h -30 v -20 h 75 v 20 h -30" fill="none"/>
+        <path d="M 15 50 v 45 h 70 v -45" fill="none"/>
+        <path d="M 42.5 30 v 65 h 15 v -65 c -70 -15 -10 -55 -10 0 c 10 -50 50 -10 -5 0 z" fill="none"/>
+    </symbol>
+
+    <symbol id="calendar" viewBox="0 0 100 100">
+        <rect x="5" y="10" width="90" height="85" rx="5" fill="none"/>
+
+        <path d="M 50 5 v 15 m -25 -15 v 15 m 50 -15 v 15" fill="none"/>
+
+        <rect x="25" y="40" width="10" height="5" fill="none"/>
+        <rect x="45" y="40" width="10" height="5" fill="none"/>
+        <rect x="65" y="40" width="10" height="5" fill="none"/>
+
+        <rect x="25" y="55" width="10" height="5" fill="none"/>
+        <rect x="45" y="55" width="10" height="5" fill="none"/>
+        <rect x="65" y="55" width="10" height="5" fill="none"/>
+
+        <rect x="25" y="70" width="10" height="5" fill="none"/>
+        <rect x="45" y="70" width="10" height="5" fill="none"/>
+        <rect x="65" y="70" width="10" height="5" fill="none"/>
+    </symbol>
+</svg>
