@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+# Check if optional parameter --dev passed
+if [ "$1" == "--dev" ]
+then
+    # Use values defined in environment file
+    source environment.properties
+    export POSTGRES_DB POSTGRES_USER POSTGRES_PASSWORD
+else
+    # Check if required parameters exists
+    error=$(tput setaf 1)
+    normal=$(tput sgr0)
+    message="${error}Must be set and not be empty.${normal}"
+    export POSTGRES_DB=${POSTGRES_DB:?${message}}
+    export POSTGRES_USER=${POSTGRES_USER:?${message}}
+    export POSTGRES_PASSWORD=${POSTGRES_PASSWORD:?${message}}
+fi
+
+# Build the application
+./gradlew clean build
+
+# Build the image
+docker build -t sedona-restapi:latest
+
+# Initialize a swarm
+docker swarm init
+
+# Deploy built stack
+docker stack deploy -c stack.yml sedona
