@@ -4,7 +4,7 @@ const webpack = require('webpack');
 
 module.exports = {
     mode: 'development',
-    entry: './src/index.js',
+    entry: './src/index.tsx',
     output: {
         path: path.resolve('dist'),
         filename: 'bundle.js'
@@ -15,6 +15,9 @@ module.exports = {
         hot: true,
         inline: false
     },
+    resolve: {
+        extensions: [".tsx", ".ts", ".js", ".json"]
+    },
     module: {
         rules: [
             {
@@ -22,15 +25,20 @@ module.exports = {
                 use: [ 'style-loader', 'css-loader', 'sass-loader' ]
             },
             {
-                test: /\.(js|jsx)$/,
-                exclude: /node_modules/,
-                use: 'babel-loader'
-            }, {
+                test: /\.tsx?$/,
+                use: 'ts-loader',
+                exclude: /node_modules/
+            },
+            {
                 test: /\.(png|svg|jpg|gif)$/,
                 use: 'file-loader'
             }
         ]
     },
+    // externals: {
+    //     "react": "React",
+    //     "react-dom": "ReactDOM"
+    // },
     plugins: [
         new HtmlWebpackPlugin({
             template: './src/index.html',
