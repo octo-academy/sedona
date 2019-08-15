@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/octo-academy/sedona-frontend.git"
+    "url": "git+https://github.com/octo-academy/sedona.git"
   },
   "author": "Julia Volkova",
   "license": "ISC",

@@ -6,8 +6,8 @@ import { AppContainer } from 'react-hot-loader';
 import createSagaMiddleware from 'redux-saga';
 import logger from 'redux-logger'
 import { App } from './components/App';
-import combineReducer from './reducers';
-import rootSaga from "./sagas";
+import combineReducer from './store/reducer';
+import rootSaga from "./store/saga";
 
 const initialState = {};
 
