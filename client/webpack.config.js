@@ -35,10 +35,10 @@ module.exports = {
             }
         ]
     },
-    // externals: {
-    //     "react": "React",
-    //     "react-dom": "ReactDOM"
-    // },
+    externals: {
+        "react": "React",
+        "react-dom": "ReactDOM"
+    },
     plugins: [
         new HtmlWebpackPlugin({
             template: './src/index.html',

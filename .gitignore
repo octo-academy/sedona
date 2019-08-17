@@ -1,0 +1,6 @@
+.idea
+node_modules/
+/client/dist
+*.iws
+tmp/
+!tmp/db/.gitkeep
