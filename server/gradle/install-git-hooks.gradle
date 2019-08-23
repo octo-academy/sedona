@@ -1,7 +1,0 @@
-task installGitHooks(type: Copy) {
-    from "${rootDir}/git-hooks"
-    into "${rootDir}/.git/hooks"
-    fileMode = 0775
-}
-
-build.dependsOn installGitHooks
